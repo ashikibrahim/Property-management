@@ -6,8 +6,36 @@ import CheckCircleTwoToneIcon from "@mui/icons-material/CheckCircleTwoTone";
 import SearchBar from "../Components/SearchBar";
 import { fontWeight } from "@mui/system";
 import CardComponent from "../Components/CardComponent";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { BaseUrl } from "../Utils/BaseUrl";
+import { useEffect } from "react";
 
 function Home() {
+  const [property, setProperty] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `${BaseUrl}/api/users/get-all-properties`
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setProperty(response.data.data);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("something went wrong no response");
+      console.log(error, "catch error");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <Grid container className="full-page">
@@ -66,8 +94,10 @@ function Home() {
         </Tabs>
 
         <div className="card-component">
-          <CardComponent />
-        </div>
+          {property.map((properties) => (
+            <CardComponent props={properties} />
+            ))}
+            </div>
       </div>
     </>
   );

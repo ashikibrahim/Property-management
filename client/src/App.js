@@ -1,4 +1,5 @@
 import {BrowserRouter as Router,Routes,Route,BrowserRouter,Navigate} from "react-router-dom"
+import { Toaster } from "react-hot-toast";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login"
 import Dashboard from './Pages/Dashboard'
@@ -10,6 +11,8 @@ function App() {
   return (
    <>
    <BrowserRouter>
+   <Toaster position="top-center" reverseOrder={false} />
+   <div>
    <Routes>
    <Route path="/" element={<Home/>} />
     <Route path="/login" element={<Login/>} />
@@ -17,7 +20,7 @@ function App() {
     <Route path="/add-property" element={<AddProperty/>} />
     <Route path="/view-property" element={<ViewProperty/>} />
    </Routes>
-
+   </div>
    </BrowserRouter>
 
    </>

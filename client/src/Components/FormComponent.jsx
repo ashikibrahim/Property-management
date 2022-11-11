@@ -1,37 +1,47 @@
-import React from 'react'
+import React from "react";
 import {
-    Card,
-    CardContent,
-    Button,
-    Typography,
-    FormControl,
-    InputLabel,
-    OutlinedInput,
-    Select,
-    MenuItem,
-    FormLabel,
-  } from "@mui/material";
-  import { Box } from "@mui/system";
-  import {useState} from 'react'
-  
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Select,
+  MenuItem,
+  FormLabel,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
+
 function FormComponent() {
-  const [image,setImage]= useState( )
+  const [image, setImage] = useState();
   return (
-  <>
-  <div style={{ paddingTop: "50px" }}>
+    <>
+      <div style={{ paddingTop: "70px" }}>
         {/* <h1 className="page-title mt-5"> </h1> */}
-        <hr />
-        <div>
-          <form 
-          // onSubmit={handleSubmit} 
-          allign="center">
-            <Typography gutterBottom variant="h4" align="center">
-              Property-Form
-              <hr />
-            </Typography>
-            <Card>
-              <CardContent>
-                <FormControl fullWidth sx={{ m: 1, width: "70ch", ml: 45 }}>
+      
+
+          <Typography gutterBottom variant="h4" align="center">
+            Property-Form
+            <hr />
+          </Typography>
+          <form
+            // onSubmit={handleSubmit}
+            align="center"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            {/* <Card> */}
+            <CardContent>
+              <div
+                align="center"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <FormControl fullWidth sx={{ m: 1, width: "70ch" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     First Name
                   </InputLabel>
@@ -44,7 +54,7 @@ function FormComponent() {
                     // value=Dr
                   />
                 </FormControl>
-                <FormControl fullWidth sx={{ m: 1, width: "70ch", ml: 45 }}>
+                <FormControl fullWidth sx={{ m: 1, width: "70ch" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     Phone Number
                   </InputLabel>
@@ -55,7 +65,7 @@ function FormComponent() {
                     name="phoneNumber"
                   />
                 </FormControl>
-                <FormControl fullWidth sx={{ m: 1, width: "70ch", ml: 45 }}>
+                <FormControl fullWidth sx={{ m: 1, width: "70ch" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     Location
                   </InputLabel>
@@ -66,10 +76,8 @@ function FormComponent() {
                     name="location"
                   />
                 </FormControl>
-                
 
-               
-                <FormControl fullWidth sx={{ m: 1, width: "70ch", ml: 45 }}>
+                <FormControl fullWidth sx={{ m: 1, width: "70ch" }}>
                   <InputLabel htmlFor="outlined-adornment-amount">
                     {" "}
                     Price
@@ -80,10 +88,9 @@ function FormComponent() {
                     name="price"
                   />
                 </FormControl>
-                
 
                 {/* <Typography sx={{ mr: 20 }} align="center">image</Typography> */}
-                <FormControl fullWidth sx={{ m: 1, width: "70ch", ml: 45 }}>
+                <FormControl fullWidth sx={{ m: 1, width: "70ch" }}>
                   <FormLabel htmlFor="outlined-adornment-amount">
                     image
                   </FormLabel>
@@ -96,18 +103,23 @@ function FormComponent() {
                     onChange={(e) => setImage(e.target.files[0])}
                   />
                 </FormControl>
-              </CardContent>
-              <Box align="center">
+                <Box align="center">
                 <Button variant="contained" type="submit">
                   Submit
                 </Button>
               </Box>
-            </Card>
+              </div>
+            </CardContent>
+         
+             
+         
+
+            {/* </Card> */}
           </form>
-        </div>
+     
       </div>
-  </>
-  )
+    </>
+  );
 }
 
-export default FormComponent
+export default FormComponent;

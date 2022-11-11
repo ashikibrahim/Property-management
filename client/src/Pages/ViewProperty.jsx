@@ -1,68 +1,128 @@
-import React from 'react'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Navbar from '../Components/Navbar';
+import React, { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Navbar from "../Components/Navbar";
+import { BaseUrl } from "../Utils/BaseUrl";
+import toast from "react-hot-toast";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 function ViewProperty() {
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+  const [property, setProperty] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `${BaseUrl}/api/users/get-all-properties`
+      );
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setProperty(response.data.data);
+      } else {
+        toast.error(response.data.message);
       }
-      
-      const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9),
-      ];
-      
+    } catch (error) {
+      toast.error("something went wrong no response");
+      console.log(error, "catch error");
+    }
+  };
+
+  const deleteData = async (id) => {
+    try {
+      console.log(id);
+      const response = await axios.delete(
+        `${BaseUrl}/api/users/delete-properties/${id}`
+      );
+      if(response.data.success){
+        getData()
+        toast.success(response.data.message)
+      }
+    } catch (error) {
+      toast.error("error")
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // function createData(name, calories, fat, carbs, protein) {
+  //     return { name, calories, fat, carbs, protein };
+  //   }
+
+  // const rows = [
+  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  //   createData('Eclair', 262, 16.0, 24, 6.0),
+  //   createData('Cupcake', 305, 3.7, 67, 4.3),
+  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
+  // ];
+
   return (
     <>
-    <Navbar/>
-   
-    <div className='container' style={{paddingTop: "100px" }}>
+      <Navbar />
+
+      <div className="container" style={{ paddingTop: "100px" }}>
+        <div align="center">
+          <h3>View Properties</h3>
+          <hr />
+        </div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                <TableCell>Property name</TableCell>
+                <TableCell align="center">image</TableCell>
+                <TableCell align="center">Location</TableCell>
+                <TableCell align="center">Price</TableCell>
+                <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {property.map((row) => (
                 <TableRow
                   key={row.name}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+                  <TableCell align="center">
+                    <img
+                      alt={row.image}
+                      src={row.image}
+                      style={{
+                        width: "150px",
+                        height: "70px",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </TableCell>
+                  <TableCell align="center">{row.location}</TableCell>
+                  <TableCell align="center">{row.price}</TableCell>
+                  <TableCell align="center">
+                    <Button
+                      variant="danger"
+                      style={{ margin: "5px" }}
+                      onClick={()=>deleteData(row._id)}  
+                    >
+                      Delete
+                    </Button>
+                    <Button variant="primary">Edit</Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-    </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default ViewProperty
-
-
-
-
-
+export default ViewProperty;

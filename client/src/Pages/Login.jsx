@@ -16,16 +16,21 @@ function Login() {
      const [password,setPassword]=useState('')
     const navigate = useNavigate()
 
-    
+    const obj={
+        email,
+        password,
+    };
 
 
 
     const onSubmit =async (e) => {
         e.preventDefault()
+        console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuu",obj);
         try {
-            const response = await axios.post(`${BaseUrl}/api/users/login`);
+            const response = await axios.post(`${BaseUrl}/api/users/login`,obj);
             if (response.data.Success) {
               toast.success(response.data.message);
+            //   localStorage.setItem("token", response.data.data);
               navigate("/Dashboard");
             } else {
               toast.error("login error");
