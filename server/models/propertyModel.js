@@ -22,5 +22,5 @@ const propertySchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Property", propertySchema);
+propertyModel = mongoose.model("Property", propertySchema);
 module.exports = propertyModel;
