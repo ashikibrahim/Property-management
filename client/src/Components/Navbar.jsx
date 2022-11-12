@@ -12,6 +12,8 @@ import {
 import AddBusinessRoundedIcon from "@mui/icons-material/AddBusinessRounded";
 import DrawerComp from "../Components/DrawerComp";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const Navbar = () => {
   const [value, setValue] = useState();
@@ -20,6 +22,8 @@ const Navbar = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   console.log(isMatch);
   const navigate=useNavigate()
+  const dispatch = useDispatch();
+  const {user} = useSelector((state)=>state.user)
 
   const userMenu = [
     {

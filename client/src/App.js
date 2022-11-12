@@ -5,6 +5,7 @@ import Login from "./Pages/Login"
 import Dashboard from './Pages/Dashboard'
 import AddProperty from './Pages/AddForm'
 import ViewProperty from "./Pages/ViewProperty";
+import EditForm from "./Pages/EditForm";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
     <Route path="/dashboard" element={<Dashboard/>} />
     <Route path="/add-property" element={<AddProperty/>} />
     <Route path="/view-property" element={<ViewProperty/>} />
+    <Route path="/edit-property/:id" element={<EditForm/>} />
    </Routes>
    </div>
    </BrowserRouter>

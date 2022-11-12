@@ -81,16 +81,18 @@ const Header = () => {
               </>
 
               <>
-                <Button sx={{ marginLeft: "auto" }} variant="contained">
+                <Button sx={{ marginLeft: "auto" }} variant="contained"
+                 onClick={() => navigate("/login")}
+                >
                   Login
                 </Button>
 
-                <Button
+                {/* <Button
                   sx={{ marginLeft: "10px", marginRight: "10px" }}
                   variant="contained"
                 >
                   Signup
-                </Button>
+                </Button> */}
               </>
             </>
           )}

@@ -91,12 +91,42 @@ router.get("/get-all-properties",async(req,res)=>{
   }
 })
 
+
+
 router.delete("/delete-properties/:id",async(req,res)=>{
   try {
     const deleteData= await Property.findByIdAndDelete(req.params.id)
     res.status(200).json({
       success:true,
       message:'delete'
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+router.get("/get-property-by-id/:id",async(req,res)=>{
+  try {
+    const updatedData= await Property.findById(req.params.id)
+    res.status(200).json({
+      success:true,
+      message:'edit fetched',
+      data:updatedData,
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+router.post("/update-property/:id",async(req,res)=>{
+  console.log(req.body,"999999999999999999999999999999");
+  const obj=req.body;
+  try {
+    const updateData= await Property.findByIdAndUpdate({_id:req.params.id},{...obj})
+    res.status(200).json({
+      success:true,
+      message:'updated'
+
     })
   } catch (error) {
     console.log(error);
